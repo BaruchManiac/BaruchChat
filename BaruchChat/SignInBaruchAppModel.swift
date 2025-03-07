@@ -9,4 +9,10 @@ import Foundation
 
 class SignInBaruchAppModel : ObservableObject {
     
+    var email = " "
+    var password = " "
+    
+    func signIn() {
+        print("email: \(email), password : \(password)")
+    }
 }

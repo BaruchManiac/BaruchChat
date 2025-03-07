@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct SignInBaruchApp: View {
-    @State private var email: String = ""
-    @State private var password: String = ""
+    @StateObject var viewModel = SignInBaruchAppModel()
+
+    
+    
     var body: some View {
         VStack{
             Image("LogoPrinc")
@@ -17,34 +19,71 @@ struct SignInBaruchApp: View {
                 .scaledToFit()
                 .padding()
             
-            TextField("Informe seu Email", text: $email)
+            TextField(" Informe o Seu Email", text: $viewModel.email)
+                .autocapitalization(.none)
+                .disableAutocorrection(false)
                 .padding()
-                .border(Color.gray)
+                .background(Color.white)
+                .cornerRadius(28)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 28)
+                        .strokeBorder(Color("Color2"),
+                                      style: StrokeStyle(lineWidth: 1))
+                )
+                .padding(.bottom, 10)
+                        
             
-            SecureField("Informe a sua senha", text: $password)
+            
+            SecureField(" Informe a Sua Senha", text: $viewModel.password)
+                .autocapitalization(.none)
+                .disableAutocorrection(false)
                 .padding()
-                .border(Color.gray)
+                .background(Color.white)
+                .cornerRadius(28)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 28)
+                        .strokeBorder(Color("Color2"),
+                                      style: StrokeStyle(lineWidth: 1))
+                )
+                .padding(.bottom, 30)
             
             
             Button (action:{
-                print("Clicado!")
+                viewModel.signIn()
             }, label: {
                 Text("Entrar")
+                    .bold()
+                    .frame(maxWidth: .infinity)
+                    .padding()
+                    .background(Color("Color2"))
+                    .foregroundColor(.white)
+                    .cornerRadius(28)
+                    .padding(.bottom, 20)
+                    
             }
             )
             
             Divider()
+                .padding()
             
             
             Button (action:{
                 print("Clicado 2!")
             }, label: {
-                Text("Não tem uma conta? Cadastre-se aqui!")
+                
+                Text("Não tem uma conta? ")
+                .foregroundColor(Color.white)
+                + Text("Cadastre-se Aqui!").bold()
+                    .foregroundColor(Color("Color2"))
             }
             )
             
             
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .padding(.horizontal, 32)
+        .background(Color("Color1"))
+    
     }
 }
 

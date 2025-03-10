@@ -1,15 +1,16 @@
 //
-//  SignInBaruchApp.swift
+//  SignUpBaruchApp.swift
 //  BaruchChat
 //
-//  Created by Baruch on 06/03/25.
+//  Created by Baruch on 10/03/25.
 //
 
 import SwiftUI
 
-struct SignInBaruchApp: View {
-    @StateObject var viewModel = SignInBaruchAppModel()
-        
+struct SignUpBaruchApp: View {
+    @StateObject var viewModel = SignUpBaruchAppModel()
+
+    
     
     var body: some View {
         NavigationView {
@@ -19,6 +20,22 @@ struct SignInBaruchApp: View {
                     .scaledToFit()
                     .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 4)
                     .padding()
+                
+                TextField("Informe o seu Nick", text: $viewModel.nick)
+                    .autocapitalization(.none)
+                    .disableAutocorrection(false)
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(28)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 28)
+                            .strokeBorder(Color("Color2"),
+                                          style: StrokeStyle(lineWidth: 1))
+                    )
+                    .shadow(radius: 3)
+                    .padding(.bottom, 10)
+                
+                
                 
                 TextField(" Informe o Seu Email", text: $viewModel.email)
                     .autocapitalization(.none)
@@ -52,9 +69,9 @@ struct SignInBaruchApp: View {
                 
                 
                 Button (action:{
-                    viewModel.signIn()
+                    viewModel.signUp()
                 }, label: {
-                    Text("Entrar")
+                    Text("Cadastre-se")
                         .bold()
                         .frame(maxWidth: .infinity)
                         .padding()
@@ -70,41 +87,30 @@ struct SignInBaruchApp: View {
                 Divider()
                     .padding()
                 
-                /*  NavigationLink(destination: SignUpBaruchApp(), label: {
-                 Text("Esqueceu a sua senha?")
-                 .foregroundColor(Color.white)
-                 })
-                 .padding(.bottom, 10)
-                 
-                 */
-                NavigationLink(destination: SignUpBaruchApp(), label: {
-                    Text("Não tem uma conta? ")
+                NavigationLink(destination: SignInBaruchApp(), label: {
+                    Text("Já tem uma conta? ")
                         .foregroundColor(Color.white)
-                    + Text("Cadastre-se Aqui!").bold()
+                    + Text("Faça o Login Aqui!").bold()
                         .foregroundColor(Color.white)
                 })
-                
                 
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding(.horizontal, 32)
             .background(
                 LinearGradient(
-                    gradient: Gradient(colors: [Color("Color1"), Color("Color2")]),
+                    gradient: Gradient(colors: [Color.green, Color("Color1"), Color("Color2")]),
                     startPoint: .top,
                     endPoint: .bottom
                 )
             .ignoresSafeArea()
-            .navigationTitle(Text("Login"))
-            .navigationBarHidden(true)
-                
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarBackButtonHidden(true)
             )
-            
         }
     }
-    
 }
 
 #Preview {
-    SignInBaruchApp()
+    SignUpBaruchApp()
 }
